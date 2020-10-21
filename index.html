@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sắp bài</title>
+    <link rel="stylesheet" href="node_modules/deck_of_cards/example/example.css">
+    <style>
+        body {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+        }
+    </style>
+</head>
+
+<body>
+    <script src="node_modules/deck_of_cards/dist/deck.min.js"></script>
+
+    <div>
+        <button id="btnShuffle" onclick="resetCard()">XÀO BÀI</button>
+        <button id="btnSorting" onclick="sortCard()">SẮP BÀI</button>
+        <button id="btnFlipping" onclick="flipCard()">LẬT BÀI</button>
+        <button id="btnCount" onclick="countAndShow()">Tăng</button>    
+        <label id="lblCount" ">0</button>
+    </div>
+    
+        
+    <div id="container">
+    </div>
+
+    <script>
+        var countNumber = 0;
+
+        var $container = document.getElementById('container');
+
+        // create Deck
+        var deck = Deck();
+
+        // Remove cards starting from the 9th
+        var removedCards = deck.cards.splice(13, 41);
+
+        removedCards.forEach(function (removedCard) {
+            removedCard.unmount();
+        });
+
+        deck.cards.forEach(function (card, i) {
+            card.setSide('front');
+
+            // Allow to move/drag it
+            card.enableDragging();
+
+            // Allow to flip it
+            card.enableFlipping();
+        });
+
+        // add to DOM
+        deck.mount($container);
+
+        function resetCard() {            
+            deck.shuffle();
+            countNumber = 0;
+            document.getElementById('lblCount').innerHTML = "" + countNumber;
+        }
+
+        function sortCard() {            
+            deck.sort();
+            countNumber = 0;
+            document.getElementById('lblCount').innerHTML = "" + countNumber;
+        }
+
+        function flipCard() {            
+            deck.flip();
+            countNumber = 0;
+            document.getElementById('lblCount').innerHTML = "" + countNumber;
+        }
+
+        function countAndShow() {
+            countNumber++;
+            document.getElementById('lblCount').innerHTML = "" + countNumber;
+        }
+    </script>
+</body>
+
+</html>
