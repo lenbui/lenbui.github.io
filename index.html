@@ -13,14 +13,13 @@
 </head>
 
 <body>
-    <script src="https://deck-of-cards.js.org/dist/deck.min.js"></script>
+    <script src="node_modules/deck_of_cards/dist/deck.min.js"></script>
 
     <div>
-        <button id="btnShuffle" onclick="resetCard()">XÀO BÀI</button>
-        <button id="btnSorting" onclick="sortCard()">SẮP BÀI</button>
-        <button id="btnFlipping" onclick="flipCard()">LẬT BÀI</button>
-        <button id="btnCount" onclick="countAndShow()">Tăng</button>    
-        <label id="lblCount" ">0</button>
+        <button id="btnShuffle" onclick="resetCard()">Shuffle</button>
+        <button id="btnSorting" onclick="sortCard()">Sort</button>
+        <button id="btnFlipping" onclick="flipCard()">Flip</button>
+        <button id="btnCount" onclick="arrangeCard()">Arrange</button>    
     </div>
     
         
@@ -54,29 +53,34 @@
 
         // add to DOM
         deck.mount($container);
+		
+		function arrangeCard() {
+			deck.cards.forEach(function (card, i) {
+				card.animateTo({
+					delay: 1000 + i * 2, // wait 1 second + i * 2 ms
+					duration: 500,
+					ease: 'quartOut',					
+					x: 100 * i + 100 - window.innerWidth / 2,
+					y: 200 - window.innerHeight / 2					
+				})
+			});
+		}
 
         function resetCard() {            
             deck.shuffle();
             countNumber = 0;
-            document.getElementById('lblCount').innerHTML = "" + countNumber;
         }
 
         function sortCard() {            
             deck.sort();
             countNumber = 0;
-            document.getElementById('lblCount').innerHTML = "" + countNumber;
         }
 
         function flipCard() {            
             deck.flip();
             countNumber = 0;
-            document.getElementById('lblCount').innerHTML = "" + countNumber;
         }
-
-        function countAndShow() {
-            countNumber++;
-            document.getElementById('lblCount').innerHTML = "" + countNumber;
-        }
+        
     </script>
 </body>
 
