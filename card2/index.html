@@ -34,8 +34,8 @@
         // create Deck
         var deck = Deck();
 
-        // Remove cards starting from the 9th
-        var removedCards = deck.cards.splice(13, 41);
+        // Remove x cards starting from the xth
+        var removedCards = deck.cards.splice(26, 26);
 
         removedCards.forEach(function (removedCard) {
             removedCard.unmount();
@@ -60,8 +60,8 @@
 					delay: 1000 + i * 2, // wait 1 second + i * 2 ms
 					duration: 500,
 					ease: 'quartOut',					
-					x: 100 * i + 100 - window.innerWidth / 2,
-					y: 200 - window.innerHeight / 2					
+					x: 90 * i + 50 - window.innerWidth / 2,
+					y: 120 * Math.floor(i/13) - window.innerHeight / 2					
 				})
 			});
 		}
