@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sắp bài</title>
+    <link rel="stylesheet" href="https://deck-of-cards.js.org/example.css">
+    <style>
+        body {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://deck-of-cards.js.org/dist/deck.min.js"></script>
+
+    <div>
+        <button id="btnShuffle" onclick="resetCard()">Shuffle</button>
+        <button id="btnSorting" onclick="sortCard()">Sort</button>
+        <button id="btnFlipping" onclick="flipCard()">Flip</button>
+        <button id="btnCount" onclick="arrangeCard()">Arrange</button>    
+    </div>
+    
+        
+    <div id="container">
+    </div>
+
+    <script>
+        var countNumber = 0;
+
+        var $container = document.getElementById('container');
+
+        // create Deck
+        var deck = Deck();
+
+        // Remove cards starting from the 9th
+        var removedCards = deck.cards.splice(13, 41);
+
+        removedCards.forEach(function (removedCard) {
+            removedCard.unmount();
+        });
+
+        deck.cards.forEach(function (card, i) {
+            card.setSide('front');
+
+            // Allow to move/drag it
+            card.enableDragging();
+
+            // Allow to flip it
+            card.enableFlipping();
+        });
+
+        // add to DOM
+        deck.mount($container);
+		
+		function arrangeCard() {
+			deck.cards.forEach(function (card, i) {
+				card.animateTo({
+					delay: 1000 + i * 2, // wait 1 second + i * 2 ms
+					duration: 500,
+					ease: 'quartOut',					
+					x: 100 * i + 100 - window.innerWidth / 2,
+					y: 200 - window.innerHeight / 2					
+				})
+			});
+		}
+
+        function resetCard() {            
+            deck.shuffle();
+            countNumber = 0;
+        }
+
+        function sortCard() {            
+            deck.sort();
+            countNumber = 0;
+        }
+
+        function flipCard() {            
+            deck.flip();
+            countNumber = 0;
+        }
+        
+    </script>
+</body>
+
+</html>
