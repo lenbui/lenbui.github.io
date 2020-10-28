@@ -34,8 +34,8 @@
         // create Deck
         var deck = Deck();
 
-        // Remove cards starting from the 9th
-        var removedCards = deck.cards.splice(13, 41);
+        // Remove x cards starting from the xth
+        var removedCards = deck.cards.splice(13, 39);
 
         removedCards.forEach(function (removedCard) {
             removedCard.unmount();
